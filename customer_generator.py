@@ -76,4 +76,4 @@ emailproviders = ["gmail.com", "earthlink.com", "aol.com", "comcast.net", "hotma
 for i in range(0,50):
 	f = random.choice(firstnames)
 	l = random.choice(lastnames)
-	print("INSERT INTO customers (customers_firstname, customers_lastname, customers_email) VALUES ('{0}', '{1}', '{2}')".format(f, l, l+f[0]+str(random.randint(100,999))+"@"+random.choice(emailproviders)))
+	print("INSERT INTO customers (customers_firstname, customers_lastname, customers_email) VALUES ('{0}', '{1}', '{2}');".format(f, l, l+f[0]+str(random.randint(100,999))+"@"+random.choice(emailproviders)))
