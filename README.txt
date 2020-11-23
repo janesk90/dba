@@ -12,7 +12,7 @@ REQUIRES Python 3.8.5
 ```bash
 python addCustomers.py > addCustomers.sql
 mysql -u shapirod1 -p 
-#pwd 1Chillypants!
+#pwd 
 
 ```
 ```SQL
