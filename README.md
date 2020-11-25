@@ -16,10 +16,10 @@ mysql -u shapirod1 -p
 
 ```
 ```SQL
-//How to get a list of all databases present?
+## How to get a list of all databases present?
 Show databases;
-// set database
+## set database
 use shapirod1
-// run sql script 
+## run sql script 
 source addCustomers.sql
 ```
