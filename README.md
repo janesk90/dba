@@ -1,8 +1,8 @@
-# Python SQL Scripts
+#Python SQL Scripts
 
-###addCustomers.py
+addCustomers.py
 
-###Discription
+##Discription
 insert random generated Customers into mysql DB Customers table
 
 ##### Usage
