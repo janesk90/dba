@@ -1,11 +1,11 @@
 # Python SQL Scripts
 
-##addCustomers.py
+###addCustomers.py
 
 ###Discription
 insert random generated Customers into mysql DB Customers table
 
-### Usage
+##### Usage
 
 REQUIRES Python 3.8.5
 
