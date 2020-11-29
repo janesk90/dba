@@ -3,7 +3,8 @@ CREATE TABLE customers (
     customers_firstname VARCHAR(100) NOT NULL,
     customers_lastname VARCHAR(100) NOT NULL,
     customers_email VARCHAR(255) NOT NULL UNIQUE,
-    customers_lastupdate TIMESTAMP NOT NULL DEFAULT NOW()
+    customers_lastupdate TIMESTAMP NOT NULL DEFAULT NOW(),
+    customers_active INT NOT NULL DEFAULT 1
 );
 CREATE TABLE products (
 	products_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -13,8 +14,7 @@ CREATE TABLE products (
     products_description VARCHAR(1000) NOT NULL DEFAULT "",
     products_restock_level INT NOT NULL,
     products_lastsold TIMESTAMP, -- nullable, where null means the product has never sold ever
-    products_sale_flag INT(1) NOT NULL,
-    products_category VARCHAR(255) -- todo: go back and add categories table and make this fk?
+    products_sale_flag INT(1) NOT NULL
 );
 CREATE TABLE categories (
 	categories_id INT AUTO_INCREMENT PRIMARY KEY,
