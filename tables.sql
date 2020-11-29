@@ -16,6 +16,17 @@ CREATE TABLE products (
     products_sale_flag INT(1) NOT NULL,
     products_category VARCHAR(255) -- todo: go back and add categories table and make this fk?
 );
+CREATE TABLE categories (
+	categories_id INT AUTO_INCREMENT PRIMARY KEY,
+    categories_name VARCHAR(255)
+);
+CREATE TABLE products_to_categories (
+	products_to_categories_id INT AUTO_INCREMENT PRIMARY KEY,
+    products_id INT,
+    FOREIGN KEY (products_id) REFERENCES products (products_id),
+    categories_id INT,
+    FOREIGN KEY (categories_id) REFERENCES categories (categories_id)
+);
 CREATE TABLE orders (
 	orders_id INT AUTO_INCREMENT PRIMARY KEY,
 	orders_address VARCHAR(255) NOT NULL,
