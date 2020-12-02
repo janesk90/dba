@@ -1,5 +1,3 @@
-drop schema projectDB;
-create schema projectDB;
 use projectDB;
 source tables.sql;
 source AllProducts.sql;
