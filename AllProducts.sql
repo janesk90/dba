@@ -2,7 +2,7 @@ CREATE
     ALGORITHM = UNDEFINED
     DEFINER = `shapirod1`@`%`
     SQL SECURITY DEFINER
-VIEW `shapirod1`.`AllProducts` AS
+VIEW `AllProducts` AS
     SELECT
         `film_list`.`title` AS `Name`,
         `film_list`.`description` AS `Description`,
@@ -13,7 +13,8 @@ VIEW `shapirod1`.`AllProducts` AS
                 ' Rating : ',
                 `film_list`.`rating`,
                 ' length : ',
-                `film_list`.`length`) AS `MoreInfo`
+                `film_list`.`length`) AS `MoreInfo`,
+        'sakila' AS `Provider`
     FROM
         `sakila`.`film_list`
     UNION SELECT
@@ -24,7 +25,8 @@ VIEW `shapirod1`.`AllProducts` AS
         CONCAT('Color : ',
                 `adventureworks`.`product`.`Color`,
                 ' Size : ',
-                `adventureworks`.`product`.`Size`) AS `MoreInfo`
+                `adventureworks`.`product`.`Size`) AS `MoreInfo`,
+        'adventureworks' AS `Provider`
     FROM
         `adventureworks`.`product`
     UNION SELECT
@@ -32,6 +34,16 @@ VIEW `shapirod1`.`AllProducts` AS
         `northwind`.`products`.`description` AS `Description`,
         `northwind`.`products`.`category` AS `Category`,
         `northwind`.`products`.`list_price` AS `Price`,
-        CONCAT('N/A') AS `MoreInfo`
+        CONCAT('N/A') AS `MoreInfo`,
+        'northwind' AS `Provider`
     FROM
         `northwind`.`products`
+    UNION SELECT
+        `products`.`products_name` AS `Name`,
+        `products`.`products_description` AS `Description`,
+        `products`.`products_category` AS `Category`,
+        `products`.`products_price` AS `Price`,
+        CONCAT('N/A') AS `MoreInfo`,
+        'AMAZON2.0' AS `Provider`
+    FROM
+        `products`
