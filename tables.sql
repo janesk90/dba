@@ -46,8 +46,11 @@ CREATE TABLE orderitems (
     quantity INT NOT NULL,
 	products_id INT,
     FOREIGN KEY (products_id) REFERENCES products (products_id),
+	suppliers_id INT,
+	FOREIGN KEY (suppliers_id) REFERENCES suppliers (suppliers_id),
     orders_id INT,
-    FOREIGN KEY (orders_id) REFERENCES orders (orders_id)
+    FOREIGN KEY (orders_id) REFERENCES orders (orders_id),
+	
 );
 CREATE TABLE ratings ( -- customers can create one rating for a product and then alter it as much as they'd like
 	ratings_value INT NOT NULL DEFAULT 3 CHECK(ratings_value BETWEEN 0 AND 5),
@@ -69,6 +72,7 @@ CREATE TABLE wishlists ( -- many customers can wish for many products
 ALTER TABLE wishlists ADD CONSTRAINT wishlists UNIQUE(customers_id, products_id);
 CREATE TABLE suppliers (
 	suppliers_id INT AUTO_INCREMENT PRIMARY KEY,
+	suppliers_name VARCHAR(255) NOT NULL UNIQUE,
     suppliers_address VARCHAR(255) NOT NULL,
     suppliers_city VARCHAR(255) NOT NULL,
     suppliers_state VARCHAR(2) NOT NULL,
