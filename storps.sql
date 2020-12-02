@@ -84,3 +84,40 @@ BEGIN
     COMMIT;
 END$$
 DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_supplier`(sname VARCHAR(255), saddress VARCHAR(255), scity VARCHAR(255), sstate VARCHAR(2), semail  VARCHAR(255), sphone  VARCHAR(18), sactive  INT)
+BEGIN
+	START TRANSACTION;
+		INSERT INTO suppliers (suppliers_name, suppliers_address, suppliers_city, suppliers_state, suppliers_email, suppliers_phone, suppliers_active)
+        VALUES (@sname, @saddress, @scity, @sstate, @semail, @sphone, @sactive);
+    COMMIT;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_supplier`(sid INT, sname VARCHAR(255), saddress VARCHAR(255), scity VARCHAR(255), sstate VARCHAR(2), semail  VARCHAR(255), sphone  VARCHAR(18), sactive  INT)
+BEGIN
+	START TRANSACTION;
+		UPDATE suppliers SET
+			suppliers_name = @sname,
+            suppliers_address = @saddress,
+            suppliers_city = @scity,
+            suppliers_state = @sstate,
+            suppliers_email = @semail,
+            suppliers_phone = @sphone,
+            suppliers_active = @sactive
+		WHERE
+			suppliers_id = @sid;
+    COMMIT;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `set_supplier_active`(sid INT, sactive INT)
+BEGIN
+	START TRANSACTION;
+		UPDATE suppliers SET
+            suppliers_active = @sactive
+		WHERE
+			suppliers_id = @sid;
+    COMMIT;
+END$$
+DELIMITER ;
