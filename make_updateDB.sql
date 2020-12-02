@@ -1,13 +1,13 @@
-drop schema projectDB
-create schema projectDB
-use projectDB
-source tables.sql
-source AllProducts.sql
-source functions_customer/add_customer.sql
-source functions_customer/set_customer_active.sql
-source functions_customer/update_customer.sql
-source addProducts.sql
-source addCustomers.sql
-source CreateAdventureWorksProductCategory.sql
-source CreateAdventureWorksProductDiscription.sql
-source CreateAdventureWorksProductView.sql
+drop schema projectDB;
+create schema projectDB;
+use projectDB;
+source tables.sql;
+source AllProducts.sql;
+source functions_customer/add_customer.sql;
+source functions_customer/set_customer_active.sql;
+source functions_customer/update_customer.sql;
+source addProducts.sql;
+source addCustomers.sql;
+source CreateAdventureWorksProductCategory.sql;
+source CreateAdventureWorksProductDiscription.sql;
+source CreateAdventureWorksProductView.sql;
