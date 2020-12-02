@@ -4,7 +4,7 @@ CREATE TABLE customers (
     customers_lastname VARCHAR(100) NOT NULL,
     customers_email VARCHAR(255) NOT NULL UNIQUE,
     customers_lastupdate TIMESTAMP NOT NULL DEFAULT NOW(),
-    customers_active INT NOT NULL DEFAULT 1
+    customers_active INT NOT NULL DEFAULT 1 CHECK(customers_active BETWEEN 0 AND 1)
 );
 CREATE TABLE products (
 	products_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,7 +15,7 @@ CREATE TABLE products (
     products_restock_level INT NOT NULL,
     products_lastsold TIMESTAMP, -- nullable, where null means the product has never sold ever
     products_sale_flag INT(1) NOT NULL,
-	products_active INT NOT NULL DEFAULT 1
+	products_active INT NOT NULL DEFAULT 1 CHECK(products_active BETWEEN 0 AND 1)
 );
 CREATE TABLE categories (
 	categories_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,18 +39,6 @@ CREATE TABLE orders (
     orders_cost DECIMAL(15,2) NOT NULL,
 	customers_id INT,
     FOREIGN KEY (customers_id) REFERENCES customers (customers_id)
-);
-CREATE TABLE orderitems (
-	orderitems_id INT AUTO_INCREMENT PRIMARY KEY,
-    orderitems_saleprice DECIMAL(15,2) NOT NULL,
-    quantity INT NOT NULL,
-	products_id INT,
-    FOREIGN KEY (products_id) REFERENCES products (products_id),
-	suppliers_id INT,
-	FOREIGN KEY (suppliers_id) REFERENCES suppliers (suppliers_id),
-    orders_id INT,
-    FOREIGN KEY (orders_id) REFERENCES orders (orders_id),
-	
 );
 CREATE TABLE ratings ( -- customers can create one rating for a product and then alter it as much as they'd like
 	ratings_value INT NOT NULL DEFAULT 3 CHECK(ratings_value BETWEEN 0 AND 5),
@@ -77,7 +65,8 @@ CREATE TABLE suppliers (
     suppliers_city VARCHAR(255) NOT NULL,
     suppliers_state VARCHAR(2) NOT NULL,
     suppliers_email VARCHAR(255) NOT NULL,
-    suppliers_phone VARCHAR(18) NOT NULL
+    suppliers_phone VARCHAR(18) NOT NULL,
+	suppliers_active INT NOT NULL DEFAULT 1 CHECK(suppliers_active BETWEEN 0 AND 1)
 );
 CREATE TABLE supplies (
 	supplies_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -97,4 +86,15 @@ CREATE TABLE restockorders (
     FOREIGN KEY (products_id) REFERENCES products (products_id),
     suppliers_id INT,
     FOREIGN KEY (suppliers_id) REFERENCES suppliers (suppliers_id)
+);
+CREATE TABLE orderitems (
+	orderitems_id INT AUTO_INCREMENT PRIMARY KEY,
+    orderitems_saleprice DECIMAL(15,2) NOT NULL,
+    quantity INT NOT NULL,
+	products_id INT,
+    FOREIGN KEY (products_id) REFERENCES products (products_id),
+	suppliers_id INT,
+	FOREIGN KEY (suppliers_id) REFERENCES suppliers (suppliers_id),
+    orders_id INT,
+    FOREIGN KEY (orders_id) REFERENCES orders (orders_id)
 );
