@@ -14,7 +14,8 @@ CREATE TABLE products (
     products_description VARCHAR(1000) NOT NULL DEFAULT "",
     products_restock_level INT NOT NULL,
     products_lastsold TIMESTAMP, -- nullable, where null means the product has never sold ever
-    products_sale_flag INT(1) NOT NULL
+    products_sale_flag INT(1) NOT NULL,
+	products_active INT NOT NULL DEFAULT 1
 );
 CREATE TABLE categories (
 	categories_id INT AUTO_INCREMENT PRIMARY KEY,
