@@ -36,7 +36,7 @@ table.createProductTable()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Product() Constructor optional parameters : 
-# products_name=None
+# _id=None, products_name=None
 # products_price=None, products_stock=None
 # products_description=None,products_restock_level=None, 
 # products_category=None, products_sale_flag=None
@@ -52,7 +52,7 @@ product.insertDocumentIntoDB()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # updateProductDocument() function optional parameters :
-# products_name=None
+#  _id=None, products_name=None
 # products_price=None, products_stock=None
 # products_description=None,products_restock_level=None, 
 # products_category=None, products_sale_flag=None
