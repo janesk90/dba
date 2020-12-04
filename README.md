@@ -33,30 +33,40 @@ table = ProductTable()
 table.printProductTable()
 table.createProductTable()
 
-product = Product(products_name="1080ti")
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Product() Constructor optional parameters : 
-#products_name=None
-#products_price=None, products_stock=None
-#products_description=None,products_restock_level=None, 
-#products_category=None, products_sale_flag=None
+# products_name=None
+# products_price=None, products_stock=None
+# products_description=None,products_restock_level=None, 
+# products_category=None, products_sale_flag=None
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+product = Product(products_name="1080ti")
+
 product.QueryPrintFromDatabase()
 
 product.insertDocumentIntoDB()
 
-# updateProductDocument() function optional parameters :
-#products_name=None
-#products_price=None, products_stock=None
-#products_description=None,products_restock_level=None, 
-#products_category=None, products_sale_flag=None
 
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+# updateProductDocument() function optional parameters :
+# products_name=None
+# products_price=None, products_stock=None
+# products_description=None,products_restock_level=None, 
+# products_category=None, products_sale_flag=None
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 product.updateProductDocument(products_name="5080ti")
 
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # updateProductObj() function optional parameters : 
 #_id=None, products_name=None
 #products_price=None, products_stock=None
 #products_description=None,products_restock_level=None, 
 #products_category=None, products_sale_flag=None
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 product.updateProductObj(products_price=99.99)
 
 product.getDocumentProductFromDB()
