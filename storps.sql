@@ -121,3 +121,11 @@ BEGIN
     COMMIT;
 END$$
 DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_wishlist`(cid INT, pid INT)
+BEGIN
+	START TRANSACTION;
+		INSERT INTO wishlists (customers_id, products_id) VALUES (@cid, @pid);
+	COMMIT;
+END$$
+DELIMITER ;
