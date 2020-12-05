@@ -43,6 +43,9 @@ CREATE TABLE orders (
 CREATE TABLE ratings ( -- customers can create one rating for a product and then alter it as much as they'd like
 	ratings_value INT NOT NULL DEFAULT 3 CHECK(ratings_value BETWEEN 0 AND 5),
     ratings_date TIMESTAMP NOT NULL DEFAULT NOW(),
+    ratings_helpful INT NOT NULL DEFAULT 1,
+    ratings_votes INT NOT NULL DEFAULT 1,
+    ratings_description VARCHAR(1000) NOT NULL DEFAULT '',
     customers_id INT,
     FOREIGN KEY (customers_id) REFERENCES customers (customers_id),
     products_id INT,

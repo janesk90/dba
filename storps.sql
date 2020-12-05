@@ -129,3 +129,24 @@ BEGIN
 	COMMIT;
 END$$
 DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `vote_rating_helpful`(rid INT)
+BEGIN
+	START TRANSACTION;
+		UPDATE ratings SET
+			ratings_helpful = ratings_helpful + 1,
+            ratings_votes = ratings_votes + 1
+		WHERE ratings_id = @rid;
+	COMMIT;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `vote_rating_not_helpful`(rid INT)
+BEGIN
+	START TRANSACTION;
+		UPDATE ratings SET
+            ratings_votes = ratings_votes + 1
+		WHERE ratings_id = @rid;
+	COMMIT;
+END$$
+DELIMITER ;
