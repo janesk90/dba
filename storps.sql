@@ -122,10 +122,10 @@ BEGIN
 END$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_wishlist`(cid INT, pid INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_wishlist`(cid INT, pid INT, sid INT)
 BEGIN
 	START TRANSACTION;
-		INSERT INTO wishlists (customers_id, products_id) VALUES (@cid, @pid);
+		INSERT INTO wishlists (customers_id, products_id, suppliers_id) VALUES (@cid, @pid, @cid);
 	COMMIT;
 END$$
 DELIMITER ;

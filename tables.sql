@@ -6,6 +6,16 @@ CREATE TABLE customers (
     customers_lastupdate TIMESTAMP NOT NULL DEFAULT NOW(),
     customers_active INT NOT NULL DEFAULT 1 CHECK(customers_active BETWEEN 0 AND 1)
 );
+CREATE TABLE suppliers (
+	suppliers_id INT AUTO_INCREMENT PRIMARY KEY,
+	suppliers_name VARCHAR(255) NOT NULL UNIQUE,
+    suppliers_address VARCHAR(255) NOT NULL,
+    suppliers_city VARCHAR(255) NOT NULL,
+    suppliers_state VARCHAR(2) NOT NULL,
+    suppliers_email VARCHAR(255) NOT NULL,
+    suppliers_phone VARCHAR(18) NOT NULL,
+	suppliers_active INT NOT NULL DEFAULT 1 CHECK(suppliers_active BETWEEN 0 AND 1)
+);
 CREATE TABLE products (
 	products_id INT AUTO_INCREMENT PRIMARY KEY,
     products_name VARCHAR(100) NOT NULL,
@@ -15,7 +25,9 @@ CREATE TABLE products (
     products_restock_level INT NOT NULL,
     products_lastsold TIMESTAMP, -- nullable, where null means the product has never sold ever
     products_sale_flag INT(1) NOT NULL,
-	products_active INT NOT NULL DEFAULT 1 CHECK(products_active BETWEEN 0 AND 1)
+	products_active INT NOT NULL DEFAULT 1 CHECK(products_active BETWEEN 0 AND 1),
+    suppliers_id INT,
+    FOREIGN KEY (suppliers_id) REFERENCES suppliers (suppliers_id)
 );
 CREATE TABLE categories (
 	categories_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,7 +38,9 @@ CREATE TABLE products_to_categories (
     products_id INT,
     FOREIGN KEY (products_id) REFERENCES products (products_id),
     categories_id INT,
-    FOREIGN KEY (categories_id) REFERENCES categories (categories_id)
+    FOREIGN KEY (categories_id) REFERENCES categories (categories_id),
+    suppliers_id INT,
+    FOREIGN KEY (suppliers_id) REFERENCES suppliers (suppliers_id)
 );
 CREATE TABLE orders (
 	orders_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,28 +63,22 @@ CREATE TABLE ratings ( -- customers can create one rating for a product and then
     customers_id INT,
     FOREIGN KEY (customers_id) REFERENCES customers (customers_id),
     products_id INT,
-    FOREIGN KEY (products_id) REFERENCES products (products_id)
+    FOREIGN KEY (products_id) REFERENCES products (products_id),
+    suppliers_id INT,
+    FOREIGN KEY (suppliers_id) REFERENCES suppliers (suppliers_id)
 );
-ALTER TABLE ratings ADD CONSTRAINT ratings UNIQUE(customers_id, products_id);
+ALTER TABLE ratings ADD CONSTRAINT ratings UNIQUE(customers_id, products_id, suppliers_id);
 CREATE TABLE wishlists ( -- many customers can wish for many products
 	wishlists_id INT AUTO_INCREMENT PRIMARY KEY,
     wishlists_date TIMESTAMP NOT NULL DEFAULT NOW(),
 	customers_id INT,
     FOREIGN KEY (customers_id) REFERENCES customers (customers_id),
     products_id INT,
-    FOREIGN KEY (products_id) REFERENCES products (products_id)
+    FOREIGN KEY (products_id) REFERENCES products (products_id),
+    suppliers_id INT,
+    FOREIGN KEY (suppliers_id) REFERENCES suppliers (suppliers_id)
 );
-ALTER TABLE wishlists ADD CONSTRAINT wishlists UNIQUE(customers_id, products_id);
-CREATE TABLE suppliers (
-	suppliers_id INT AUTO_INCREMENT PRIMARY KEY,
-	suppliers_name VARCHAR(255) NOT NULL UNIQUE,
-    suppliers_address VARCHAR(255) NOT NULL,
-    suppliers_city VARCHAR(255) NOT NULL,
-    suppliers_state VARCHAR(2) NOT NULL,
-    suppliers_email VARCHAR(255) NOT NULL,
-    suppliers_phone VARCHAR(18) NOT NULL,
-	suppliers_active INT NOT NULL DEFAULT 1 CHECK(suppliers_active BETWEEN 0 AND 1)
-);
+ALTER TABLE wishlists ADD CONSTRAINT wishlists UNIQUE(customers_id, products_id, suppliers_id);
 CREATE TABLE supplies (
 	supplies_id INT AUTO_INCREMENT PRIMARY KEY,
     supplies_cost DECIMAL(15,2) NOT NULL DEFAULT 0,
