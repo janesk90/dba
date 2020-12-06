@@ -1,13 +1,19 @@
 SELECT * FROM products WHERE products_stock <= products_restock_level; -- this fulfills the guts for item 10: products below minimum stock
+
 SELECT COUNT(*) as purchase_count FROM orders WHERE orders_purchasedate < NOW() - INTERVAL 1 MONTH GROUP BY customers_id HAVING purchase_count < 4; -- this fulfills the guts for item 11: not too active customers
+
 SELECT SUM(quantity) as purchase_count FROM orderitems JOIN orders ON orderitems.orders_id = orders.orders_id WHERE orders_purchasedate < NOW() - INTERVAL 1 MONTH GROUP BY products_id, suppliers_id HAVING purchase_count < 10; -- this fulfills the guts for item 12: products not doing too well
+
 SELECT MAX(t1.wishcount) as wishcount, t1.products_id, ptc.categories_id FROM -- this gets the most wished for products in each category
 	(SELECT products_id, COUNT(*) AS wishcount FROM wishlists GROUP BY products_id) t1 JOIN 
     products_to_categories ptc 
     ON t1.products_id = ptc.products_id
     GROUP BY categories_id;
+
 SELECT products.* FROM products_to_categories JOIN products ON products_to_categories.products_id = products.products_id WHERE categories_id = @cid; -- this fulfills the browse by categories requirement, but isn't wrapped in a function
+
 SELECT AVG(ratings_value) AS products_rating FROM ratings WHERE products_id = @pid; -- gets the average rating for a product, this is the one that isn't smart
+
 SELECT (AVG((ratings.ratings_helpful/ratings.ratings_votes)/h.help_norm)*ratings.ratings_value) AS ratings_help_norm -- this is the smart ratings finder
 FROM (
 	SELECT MAX(helpfulness) AS help_norm FROM (
