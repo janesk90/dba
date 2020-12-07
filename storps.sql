@@ -1,41 +1,41 @@
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `set_active`(id INT, isactive INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `set_active`(_id INT, _isactive INT)
 BEGIN
 	START TRANSACTION;
 		UPDATE customers
         SET 
-            customers_active = @isactive
+            customers_active = _isactive
 		WHERE
-			customers_id = @id;
+			customers_id = _id;
 	COMMIT;
 END$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_customer`(firstname VARCHAR(100), lastname VARCHAR(100), email VARCHAR(255))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_customer`(_firstname VARCHAR(100), _lastname VARCHAR(100), _email VARCHAR(255))
 BEGIN
 	START TRANSACTION;
 		INSERT INTO customers (customers_firstname, customers_lastname, customers_email, customers_active)
-		VALUES (@firstname, @lastname, @email, 1);
+		VALUES (_firstname, _lastname, _email, 1);
 	COMMIT;
 END$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_customer`(id INT, firstname VARCHAR(100), lastname VARCHAR(100), email VARCHAR(255), isactive INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_customer`(_id INT, _firstname VARCHAR(100), _lastname VARCHAR(100), _email VARCHAR(255), _isactive INT)
 BEGIN
 	START TRANSACTION;
 		UPDATE customers
         SET 
-			customers_firstname = @firstname,
-            customers_lastname = @lastname,
-            customers_email = @email,
-            customers_active = @isactive
+			customers_firstname = _firstname,
+            customers_lastname = _lastname,
+            customers_email = _email,
+            customers_active = _isactive
 		WHERE
-			customers_id = @id;
+			customers_id = _id;
 	COMMIT;
 END$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_product`(products_name VARCHAR(100), products_price DECIMAL(15,2), products_stock INT, products_description VARCHAR(1000), products_restock_level INT, products_lastsold TIMESTAMP, products_sale_flag INT, products_active INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_product`(_products_name VARCHAR(100), _products_price DECIMAL(15,2), _products_stock INT, _products_description VARCHAR(1000), _products_restock_level INT, _products_lastsold TIMESTAMP, _products_sale_flag INT, _products_active INT)
 BEGIN
 	START TRANSACTION;
 		INSERT INTO products (
@@ -48,39 +48,39 @@ BEGIN
             products_sale_flag, 
             products_active )
 		VALUES (
-			@products_name, 
-            @products_price, 
-            @products_stock, 
-            @products_description, 
-            @products_restock_level, 
-            @products_lastsold, 
-            @products_sale_flag, 
-            @products_active);
+			_products_name, 
+            _products_price, 
+            _products_stock, 
+            _products_description, 
+            _products_restock_level, 
+            _products_lastsold, 
+            _products_sale_flag, 
+            _products_active);
     COMMIT;
 END$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `set_product_active`(products_id INT, is_active INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `set_product_active`(_products_id INT, _is_active INT)
 BEGIN
 	START TRANSACTION;
-		UPDATE products SET products_active = @is_active WHERE products_id = @products_id;
+		UPDATE products SET products_active = _is_active WHERE products_id = _products_id;
     COMMIT;
 END$$
 DELIMITER ;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_product`(products_id INT, products_name VARCHAR(100), products_price DECIMAL(15,2), products_stock INT, products_description VARCHAR(1000), products_restock_level INT, products_sale_flag INT, products_active INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_product`(_products_id INT, _products_name VARCHAR(100), _products_price DECIMAL(15,2), _products_stock INT, _products_description VARCHAR(1000), _products_restock_level INT, _products_sale_flag INT, _products_active INT)
 BEGIN
 	START TRANSACTION;
 		UPDATE products SET
-			products_name = @products_name,
-            products_price = @products_price,
-            products_stock = @products_stock,
-            products_description = @products_description,
-            products_restock_level = @products_restock_level,
-            products_sale_flag = @products_sale_flag,
-            products_active = @products_active
+			products_name = _products_name,
+            products_price = _products_price,
+            products_stock = _products_stock,
+            products_description = _products_description,
+            products_restock_level = _products_restock_level,
+            products_sale_flag = _products_sale_flag,
+            products_active = _products_active
 		WHERE
-			products_id = @products_id;
+			products_id = _products_id;
     COMMIT;
 END$$
 DELIMITER ;
@@ -89,7 +89,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `add_supplier`(sname VARCHAR(255), s
 BEGIN
 	START TRANSACTION;
 		INSERT INTO suppliers (suppliers_name, suppliers_address, suppliers_city, suppliers_state, suppliers_email, suppliers_phone, suppliers_active)
-        VALUES (@sname, @saddress, @scity, @sstate, @semail, @sphone, @sactive);
+        VALUES (sname, saddress, scity, sstate, semail, sphone, sactive);
     COMMIT;
 END$$
 DELIMITER ;
@@ -98,15 +98,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_supplier`(sid INT, sname VAR
 BEGIN
 	START TRANSACTION;
 		UPDATE suppliers SET
-			suppliers_name = @sname,
-            suppliers_address = @saddress,
-            suppliers_city = @scity,
-            suppliers_state = @sstate,
-            suppliers_email = @semail,
-            suppliers_phone = @sphone,
-            suppliers_active = @sactive
+			suppliers_name = sname,
+            suppliers_address = saddress,
+            suppliers_city = scity,
+            suppliers_state = sstate,
+            suppliers_email = semail,
+            suppliers_phone = sphone,
+            suppliers_active = sactive
 		WHERE
-			suppliers_id = @sid;
+			suppliers_id = sid;
     COMMIT;
 END$$
 DELIMITER ;
@@ -115,9 +115,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `set_supplier_active`(sid INT, sacti
 BEGIN
 	START TRANSACTION;
 		UPDATE suppliers SET
-            suppliers_active = @sactive
+            suppliers_active = sactive
 		WHERE
-			suppliers_id = @sid;
+			suppliers_id = sid;
     COMMIT;
 END$$
 DELIMITER ;
@@ -125,7 +125,7 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_wishlist`(cid INT, pid INT, sid INT)
 BEGIN
 	START TRANSACTION;
-		INSERT INTO wishlists (customers_id, products_id, suppliers_id) VALUES (@cid, @pid, @cid);
+		INSERT INTO wishlists (customers_id, products_id, suppliers_id) VALUES (cid, pid, cid);
 	COMMIT;
 END$$
 DELIMITER ;
@@ -136,7 +136,7 @@ BEGIN
 		UPDATE ratings SET
 			ratings_helpful = ratings_helpful + 1,
             ratings_votes = ratings_votes + 1
-		WHERE ratings_id = @rid;
+		WHERE ratings_id = rid;
 	COMMIT;
 END$$
 DELIMITER ;
@@ -146,23 +146,23 @@ BEGIN
 	START TRANSACTION;
 		UPDATE ratings SET
             ratings_votes = ratings_votes + 1
-		WHERE ratings_id = @rid;
+		WHERE ratings_id = rid;
 	COMMIT;
 END$$
 DELIMITER ;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `rate_product`(cid INT, pid INT, sid INT, r INT, d VARCHAR(1000))
 BEGIN
-	IF NOT EXISTS (SELECT * FROM ratings WHERE customers_id = @cid AND products_id = @pid AND suppliers_id = @sid) THEN
+	IF NOT EXISTS (SELECT * FROM ratings WHERE customers_id = cid AND products_id = pid AND suppliers_id = sid) THEN
 		START TRANSACTION;
 		INSERT INTO 
 			ratings (ratings_value, ratings_helpful, ratings_votes, ratings_description, customers_id, products_id, suppliers_id) 
 		VALUES 
-			(@r,1,1,@d,@cid,@pid,@sid);
+			(r,1,1,d,cid,pid,sid);
 		COMMIT;
 	ELSE
 		START TRANSACTION;
-		UPDATE ratings SET ratings_value = @r, ratings_description = @d WHERE customers_id = @cid AND products_id = @pid AND suppliers_id = @cid;
+		UPDATE ratings SET ratings_value = r, ratings_description = d WHERE customers_id = cid AND products_id = pid AND suppliers_id = cid;
 		COMMIT;
 	END IF;
 END$$
