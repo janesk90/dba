@@ -150,3 +150,20 @@ BEGIN
 	COMMIT;
 END$$
 DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `rate_product`(cid INT, pid INT, sid INT, r INT, d VARCHAR(1000))
+BEGIN
+	IF NOT EXISTS (SELECT * FROM ratings WHERE customers_id = @cid AND products_id = @pid AND suppliers_id = @sid) THEN
+		START TRANSACTION;
+		INSERT INTO 
+			ratings (ratings_value, ratings_helpful, ratings_votes, ratings_description, customers_id, products_id, suppliers_id) 
+		VALUES 
+			(@r,1,1,@d,@cid,@pid,@sid);
+		COMMIT;
+	ELSE
+		START TRANSACTION;
+		UPDATE ratings SET ratings_value = @r, ratings_description = @d WHERE customers_id = @cid AND products_id = @pid AND suppliers_id = @cid;
+		COMMIT;
+	END IF;
+END$$
+DELIMITER ;
