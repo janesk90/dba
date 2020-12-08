@@ -49,7 +49,7 @@ CREATE TABLE orders (
     orders_state VARCHAR(2) NOT NULL,
     orders_zip VARCHAR(10) NOT NULL, -- for instance, if we go to Canada, their concept of what we call a ZIP code has letters
     orders_purchasedate TIMESTAMP NOT NULL DEFAULT NOW(),
-    orders_shipdate TIMESTAMP NOT NULL DEFAULT NOW(), -- todo: default this to four business days from now
+    orders_shipdate TIMESTAMP NOT NULL DEFAULT NOW() + INTERVAL `dba`.`calendar_days_from_day`(NOW()) DAY, -- todo: default this to four business days from now
     orders_cost DECIMAL(15,2) NOT NULL,
 	customers_id INT,
     FOREIGN KEY (customers_id) REFERENCES customers (customers_id)
