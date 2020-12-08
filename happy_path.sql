@@ -1,0 +1,13 @@
+CALL `dba`.`add_customer`('benneth', 'banes', 'banesb90@bmail.bom');
+INSERT INTO categories (categories_name) VALUES ('Stuff');
+CALL `dba`.`add_supplier`('Sups', '123 Party St', 'Anytown', 'NJ', 'us.us.com', '01189998819991157', 1);
+CALL `dba`.`add_product`('Hitachi Wand', 69.00, 500000, 'Personal massager.', 100, NULL, 0, 1);
+UPDATE products SET suppliers_id = 1 WHERE products_id = 1;
+INSERT INTO products_to_categories (products_id, categories_id, suppliers_id) VALUES (1,1,1);
+INSERT INTO orders (orders_address, orders_city, orders_state, orders_zip, orders_purchasedate, orders_shipdate, orders_cost, customers_id) VALUES ('123 Party St', 'Anytown', 'NJ', '08057', NOW(), NOW(), 69.00, 1);
+UPDATE orders SET orders.orders_shipdate = NOW() + INTERVAL `dba`.`calendar_days_from_day`(NOW()) DAY WHERE orders.orders_id = 1;
+INSERT INTO orderitems (orderitems_saleprice, quantity, products_id, suppliers_id, orders_id) VALUES (69.00, 1, 1, 1, 1);
+CALL `dba`.`rate_product`(1, 1, 1, 5, 'VERY GOOD.');
+UPDATE ratings SET ratings_helpful = 500, ratings_votes = 1000 WHERE customers_id = 1 AND products_id = 1 AND suppliers_id = 1;
+CALL `dba`.`vote_rating_helpful`(1);
+CALL `dba`.`vote_rating_not_helpful`(1);

@@ -49,12 +49,13 @@ CREATE TABLE orders (
     orders_state VARCHAR(2) NOT NULL,
     orders_zip VARCHAR(10) NOT NULL, -- for instance, if we go to Canada, their concept of what we call a ZIP code has letters
     orders_purchasedate TIMESTAMP NOT NULL DEFAULT NOW(),
-    orders_shipdate TIMESTAMP NOT NULL DEFAULT NOW() + INTERVAL `dba`.`calendar_days_from_day`(NOW()) DAY, -- todo: default this to four business days from now
+    orders_shipdate TIMESTAMP NOT NULL DEFAULT NOW(), -- todo: default this to four business days from now
     orders_cost DECIMAL(15,2) NOT NULL,
 	customers_id INT,
     FOREIGN KEY (customers_id) REFERENCES customers (customers_id)
 );
 CREATE TABLE ratings ( -- customers can create one rating for a product and then alter it as much as they'd like
+	ratings_id INT AUTO_INCREMENT PRIMARY KEY,
 	ratings_value INT NOT NULL DEFAULT 3 CHECK(ratings_value BETWEEN 0 AND 5),
     ratings_date TIMESTAMP NOT NULL DEFAULT NOW(),
     ratings_helpful INT NOT NULL DEFAULT 1,

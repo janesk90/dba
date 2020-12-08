@@ -176,7 +176,12 @@ BEGIN
     COMMIT;
 END$$
 DELIMITER ;
-CALL `dba`.`get_products_by_category`(<{cid INT}>);
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_products_by_category`(cid INT)
+BEGIN
+	SELECT DISTINCT products_id, suppliers_id FROM products p JOIN products_to_categories c ON p.products_id = c.products_id AND p.suppliers_id = c.suppliers_id WHERE categories_id = cid;
+END$$
+DELIMITER ;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `suggest_products`(cid INT)
 BEGIN
