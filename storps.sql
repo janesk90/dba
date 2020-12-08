@@ -167,3 +167,12 @@ BEGIN
 	END IF;
 END$$
 DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_restock_order`(q INT, t DECIMAL(15,2), pid INT, sid INT)
+BEGIN
+	START TRANSACTION;
+		INSERT INTO restockorders (restockorders_date, restockorders_quantity, restockorders_totalcost, products_id, suppliers_id) 
+        VALUES (NOW(), q, t, pid, sid);
+    COMMIT;
+END$$
+DELIMITER ;
