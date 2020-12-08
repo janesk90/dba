@@ -176,3 +176,10 @@ BEGIN
     COMMIT;
 END$$
 DELIMITER ;
+CALL `dba`.`get_products_by_category`(<{cid INT}>);
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `suggest_products`(cid INT)
+BEGIN
+	SELECT * FROM products_to_categories ptc2 WHERE ptc2.categories_id IN (SELECT ptc.categories_id FROM orderitems oi JOIN products_to_categories ptc ON (oi.products_id = ptc.products_id AND oi.suppliers_id = ptc.suppliers_id) JOIN orders o ON (o.orders_id = oi.orders_id) WHERE o.customers_id = cid ORDER BY RAND()) ORDER BY RAND() LIMIT 5;
+END$$
+DELIMITER ;
