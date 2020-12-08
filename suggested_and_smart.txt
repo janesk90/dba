@@ -1,0 +1,11 @@
+This document describes the suggested product and smart ratings systems.
+
+Suggested Products:
+	Go to a customer's order history and select five categories at random from their products purchased
+	Select any five products which falls into at least one of those categories.
+	
+Smart Reviews: // the smart review is smarter when there is more cooperation from customers
+	Customers are given the ability to rate revies as helpful or unhelpful
+	All reviews start off assumed helpful because why would you leave a review you think is unhelpful? After all, it's a whole several precious minutes from your day.
+	Normalize helpfulness to total votes ratio relative to the highest helpfulness score
+	Find the weighted average by normalized helpfulness ratios
