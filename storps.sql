@@ -183,3 +183,9 @@ BEGIN
 	SELECT * FROM products_to_categories ptc2 WHERE ptc2.categories_id IN (SELECT ptc.categories_id FROM orderitems oi JOIN products_to_categories ptc ON (oi.products_id = ptc.products_id AND oi.suppliers_id = ptc.suppliers_id) JOIN orders o ON (o.orders_id = oi.orders_id) WHERE o.customers_id = cid ORDER BY RAND()) ORDER BY RAND() LIMIT 5;
 END$$
 DELIMITER ;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `find_smart_rating_for_product`(pid INT, sid INT)
+BEGIN
+	SELECT AVG(ratings.ratings_value*((ratings.ratings_helpful/ratings.ratings_votes)*normalizing_ratio))/(AVG(ratings.ratings_value)) AS smart_rating FROM (SELECT COALESCE(MAX(ratings_ratio),1) AS normalizing_ratio FROM (SELECT (ratings_helpful/ratings_votes) AS ratings_ratio FROM ratings) ratioer) normalizer JOIN ratings WHERE products_id = pid AND suppliers_id = sid GROUP BY products_id, suppliers_id;
+END$$
+DELIMITER ;
